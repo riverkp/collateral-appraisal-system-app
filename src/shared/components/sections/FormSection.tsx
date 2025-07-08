@@ -1,7 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import TextInput from './TextInput';
+import TextInput from '../inputs/TextInput';
 import type { HTMLAttributes } from 'react';
-import ListBox, { type ListBoxItem } from './ListBox';
+import ListBox, { type ListBoxItem } from '../inputs/ListBox';
 
 interface FormSectionProps<
   Schema extends Record<string, any>,

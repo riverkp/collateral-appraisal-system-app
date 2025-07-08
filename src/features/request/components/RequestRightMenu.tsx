@@ -1,6 +1,6 @@
 import ProfileCard from '@/shared/components/ProfileCard';
 import ResizableSidebar from '@/shared/components/ResizableSidebar';
-import SectionHeader from '@/shared/components/SectionHeader';
+import SectionHeader from '../../../shared/components/sections/SectionHeader';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
 interface RequestRightMenuProps {

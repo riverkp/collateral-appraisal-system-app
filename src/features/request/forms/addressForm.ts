@@ -1,4 +1,4 @@
-import type { FormField } from '@/shared/components/FormSection';
+import type { FormField } from '../../../shared/components/sections/FormSection';
 import type { AddressDtoType } from '@/shared/forms/v1';
 
 export type AddressFields = {

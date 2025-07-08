@@ -7,8 +7,8 @@ import {
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
-import SectionHeader from '@/shared/components/SectionHeader';
-import FormSection from '@/shared/components/FormSection';
+import SectionHeader from '../../../shared/components/sections/SectionHeader';
+import FormSection from '../../../shared/components/sections/FormSection';
 import { addressFields, type AddressFields } from '../forms/addressForm';
 import Button from '@/shared/components/Button';
 import RequestRightMenu from '../components/RequestRightMenu';

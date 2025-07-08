@@ -6,7 +6,7 @@ import {
   ListboxSelectedOption as HeadlessListboxSelectedOption,
 } from '@headlessui/react';
 import { type HTMLAttributes, type ReactNode } from 'react';
-import Icon from './Icon';
+import Icon from '../Icon';
 
 interface ListBoxProps extends HTMLAttributes<HTMLDivElement> {
   options: ListBoxItem[];

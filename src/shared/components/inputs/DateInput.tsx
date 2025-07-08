@@ -1,5 +1,5 @@
 import { type InputHTMLAttributes } from 'react';
-import Input from './Input';
+import Input from '../Input';
 
 interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
