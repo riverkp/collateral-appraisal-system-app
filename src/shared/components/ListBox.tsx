@@ -35,14 +35,14 @@ export type ListBoxItem = {
 };
 
 const ListBox = ({ options, value, label, placeholder="Please select", ...props }: ListBoxProps) => {
-  const selectedOption = options.find(opt => opt.value === value);
+  const selectedOption = options.find(opt => opt.value === value) ?? null;
   const selectedOnChange = (opt: ListBoxItem) => props.onChange(opt.value);
   return (
     <div className={'w-full ' + props.className}>
       <div className="block text-sm font-medium text-gray-700 mb-1">{label}</div>
       <ListBoxHolder value={selectedOption} onChange={selectedOnChange} placeholder={placeholder}>
         {options.map(option => (
-          <ListBoxOption key={option.id} value={option}>
+          <ListBoxOption key={option.id ?? option.value} value={option}>
             {option.label}
           </ListBoxOption>
         ))}
