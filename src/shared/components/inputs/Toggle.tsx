@@ -1,13 +1,27 @@
+import { accessPath } from '@/shared/utils/objectUtils';
+import clsx from 'clsx';
 import { type HTMLAttributes } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 interface ToggleProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
   choices: string[];
-  selectedChoice: string;
-  setSelectedChoice: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
+  booleanTrueOption?: string;
 }
 
-const Toggle = ({ label, choices, selectedChoice, setSelectedChoice, ...props }: ToggleProps) => {
+const Toggle = ({ label, choices, name, ...props }: ToggleProps) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  let error = accessPath(errors, name.split('.'));
+  let registerProps = register(name, {
+    ...(props.booleanTrueOption !== undefined
+      ? { setValueAs: v => v === props.booleanTrueOption }
+      : {}),
+  });
+
   return (
     <div className={`text-sm ${props.className}`}>
       <fieldset>
@@ -20,9 +34,8 @@ const Toggle = ({ label, choices, selectedChoice, setSelectedChoice, ...props }:
                   <input
                     type="radio"
                     value={choice}
-                    checked={selectedChoice === choice}
-                    onChange={e => setSelectedChoice(e.target.value)}
                     className="peer hidden"
+                    {...registerProps}
                   />
                   <div className="peer-checked:bg-blue-500 py-2 px-4 rounded-[36px] transition-all duration-500">
                     {choice}
@@ -31,6 +44,13 @@ const Toggle = ({ label, choices, selectedChoice, setSelectedChoice, ...props }:
               </div>
             );
           })}
+        </div>
+        <div>
+          {error?.message?.toString() && (
+            <p className={clsx('mt-1 text-sm', error ? 'text-red-600' : 'text-gray-500')}>
+              {error?.message?.toString()}
+            </p>
+          )}
         </div>
       </fieldset>
     </div>
