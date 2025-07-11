@@ -1,19 +1,19 @@
 import { createRequestRequestDefaults } from '@/shared/forms/defaults';
-import {
-  CreateRequestRequest,
-  type AddressDtoType,
-  type CreateRequestRequestType,
-} from '@/shared/forms/v1';
+import { CreateRequestRequest, type CreateRequestRequestType } from '@/shared/forms/v1';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import SectionHeader from '../../../shared/components/sections/SectionHeader';
-import FormSection from '../../../shared/components/sections/FormSection';
-import { addressFields, type AddressFields } from '../forms/addressForm';
+import AddressForm from '../forms/AddressForm';
 import Button from '@/shared/components/Button';
 import RequestRightMenu from '../components/RequestRightMenu';
 import { useDisclosure } from '@/shared/hooks/useDisclosure';
 import AppHeader from '../../../shared/components/sections/AppHeader';
+import CustomersForm from '../forms/CustomersForm';
+import PropertiesForm from '../forms/PropertiesForm';
+import RequestForm from '../forms/RequestForm';
+import AppointmentAndFeeForm from '../forms/AppointmentAndFeeForm';
+import ResizableSidebar from '@/shared/components/ResizableSidebar';
 
 function CreateRequestPage() {
   const methods = useForm<CreateRequestRequestType>({
@@ -26,6 +26,7 @@ function CreateRequestPage() {
     // watch,
     // formState: { errors },
   } = methods;
+  // TODO: Use React Query
   const onSubmit: SubmitHandler<CreateRequestRequestType> = data => {
     console.log(data);
     axios
@@ -38,18 +39,31 @@ function CreateRequestPage() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <AppHeader iconVariant='folder' title={'New request'} />
-        <div className="flex flex-row divide-x">
-          <div className="p-6 flex-auto flex flex-col gap-4 border-gray-200">
-            <SectionHeader title="Location" />
-            <FormSection<AddressDtoType, AddressFields>
-              fields={addressFields}
-              namePrefix="address."
-              className="grid grid-cols-6 gap-3"
-            />
-          </div>
-          <RequestRightMenu isOpen={isOpen} onToggle={onToggle} />
-        </div>
+        <AppHeader iconVariant="folder" title={'New request'} />
+        <ResizableSidebar
+          isOpen={isOpen}
+          onToggle={onToggle}
+          openedWidth="basis-xs"
+          closedWidth="w-8"
+        >
+          <ResizableSidebar.Main>
+            <div className="flex-auto flex flex-col gap-4 ">
+              <SectionHeader title="Customers" />
+              <CustomersForm />
+              <SectionHeader title="Request" />
+              <RequestForm />
+              <SectionHeader title="Properties" />
+              <PropertiesForm />
+              <SectionHeader title="Location" />
+              <AddressForm />
+              <SectionHeader title="Appointment and Fee" />
+              <AppointmentAndFeeForm />
+            </div>
+          </ResizableSidebar.Main>
+          <ResizableSidebar.Sidebar>
+            <RequestRightMenu />
+          </ResizableSidebar.Sidebar>
+        </ResizableSidebar>
         <hr className="border-gray-200" />
         <div className="flex justify-between">
           <div className="flex divide-x gap-4">
