@@ -14,10 +14,17 @@ interface FormTableProps {
   headers: FormTableHeader[];
 }
 
-interface FormTableHeader {
+type FormTableHeader = FormTableRegularHeader | FormTableRowNumberHeader;
+
+interface FormTableRegularHeader {
   name: string;
   label: string;
   inputType?: string;
+}
+
+interface FormTableRowNumberHeader {
+  rowNumberColumn: true;
+  label: string;
 }
 
 interface TableCellProps {
@@ -25,7 +32,7 @@ interface TableCellProps {
   index: number;
   editIndex: number | undefined;
   value: string;
-  header: FormTableHeader;
+  header: FormTableRegularHeader;
   control: Control<FieldValues, any, FieldValues>;
 }
 
@@ -44,7 +51,9 @@ const FormTable = ({ name, headers }: FormTableProps) => {
   const handleAddRow = () => {
     const newRow: Record<string, any> = {};
     for (const header of headers) {
-      newRow[header.name] = '';
+      if ('name' in header) {
+        newRow[header.name] = ''; // TODO: Get default value from zod
+      }
     }
     append(newRow);
     setEditIndex(getValues(name).length - 1);
@@ -63,19 +72,26 @@ const FormTable = ({ name, headers }: FormTableProps) => {
         </thead>
         <tbody>
           {values.map((field: Record<string, any>, index: number) => (
-            <tr key={field.id}>
-              {headers.map(header => (
-                <td>
-                  <TableCell
-                    name={name}
-                    index={index}
-                    editIndex={editIndex}
-                    value={field[header.name]}
-                    header={header}
-                    control={control}
-                  />
-                </td>
-              ))}
+            // TODO: Find and add unique key
+            <tr>
+              {headers.map(header => {
+                if ('name' in header) {
+                  return (
+                    <td>
+                      <TableCell
+                        name={name}
+                        index={index}
+                        editIndex={editIndex}
+                        value={field[header.name]}
+                        header={header}
+                        control={control}
+                      />
+                    </td>
+                  );
+                } else {
+                  return <td>{index + 1}</td>;
+                }
+              })}
               <td className="flex gap-2 justify-end">
                 {editIndex === index ? (
                   <button type="button" onClick={() => setEditIndex(undefined)}>
