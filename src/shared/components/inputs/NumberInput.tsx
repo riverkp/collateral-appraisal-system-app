@@ -7,18 +7,8 @@ interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-const NumberInput = ({ label, error, readonly = false, ...props }: NumberInputProps) => {
-  return (
-    <div className={props.className}>
-      <Input
-        type="number"
-        label={label}
-        value={props.value}
-        onChange={props.onChange}
-        error={error}
-      />
-    </div>
-  );
+const NumberInput = ({ error, ...props }: NumberInputProps) => {
+  return <Input {...props} error={error} type="number" />;
 };
 
 export default NumberInput;

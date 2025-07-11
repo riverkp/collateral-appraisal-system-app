@@ -1,25 +1,19 @@
 import { Field, Label, Textarea as HeadlessTextarea } from '@headlessui/react';
+import clsx from 'clsx';
 import type { HTMLAttributes } from 'react';
 
-interface TextareaProps extends HTMLAttributes<HTMLDivElement> {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+interface TextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
   label: string;
-  readonly?: boolean;
+  error?: string;
+  fullWidth?: boolean;
 }
 
-const Textarea = ({ value, setValue, label, ...props }: TextareaProps) => {
+const Textarea = ({ label, error, fullWidth = true, ...props }: TextareaProps) => {
   return (
-    <div className={props.className}>
-      <Field className="flex flex-col">
-        <Label>{label}</Label>
-        <HeadlessTextarea
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          className="border border-zinc-400/50 rounded"
-        />
-      </Field>
-    </div>
+    <Field className={clsx(fullWidth && 'w-full', 'flex', 'flex-col')}>
+      <Label>{label}</Label>
+      <HeadlessTextarea className="border border-zinc-400/50 rounded" {...props} />
+    </Field>
   );
 };
 

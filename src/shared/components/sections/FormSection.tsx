@@ -1,92 +1,138 @@
-import { Controller, useFormContext } from 'react-hook-form';
+import Dropdown, { type ListBoxItem } from '../inputs/Dropdown';
+import Toggle from '../inputs/Toggle';
+import NumberInput from '../inputs/NumberInput';
+import { useController, useFormContext, type Control, type FieldValues } from 'react-hook-form';
 import TextInput from '../inputs/TextInput';
-import type { HTMLAttributes } from 'react';
-import ListBox, { type ListBoxItem } from '../inputs/ListBox';
+import DateInput from '../inputs/DateInput';
+import clsx from 'clsx';
+import Textarea from '../inputs/Textarea';
+import DateTimeInput from '../inputs/DatetimeInput';
+import SelectInput from '../inputs/SelectInput';
 
-interface FormSectionProps<
-  Schema extends Record<string, any>,
-  Details extends { [K in keyof Schema]: FormField },
-> extends HTMLAttributes<HTMLDivElement> {
-  fields: Details;
+interface FormSectionProps {
+  fields: FormField[];
   namePrefix?: string;
 }
 
-export type FormField = TextInputField | ListBoxField;
+export type FormField =
+  | TextInputField
+  | NumberInputField
+  | DateInputField
+  | DateTimeInputField
+  | SelectInputField
+  | DropdownField
+  | ToggleField
+  | TextareaField;
 
 interface TextInputField extends BaseFormField {
   type: 'text-input';
   label: string;
-  defaultValue?: string;
 }
 
-interface ListBoxField extends BaseFormField {
-  type: 'listbox';
+interface NumberInputField extends BaseFormField {
+  type: 'number-input';
+  label: string;
+}
+
+interface DateInputField extends BaseFormField {
+  type: 'date-input';
+  label: string;
+}
+
+interface DateTimeInputField extends BaseFormField {
+  type: 'datetime-input';
+  label: string;
+}
+
+interface SelectInputField extends BaseFormField {
+  type: 'select-input';
   label: string;
   options: ListBoxItem[];
 }
 
-interface BaseFormField {
-  key?: string;
-  className?: string;
+interface DropdownField extends BaseFormField {
+  type: 'dropdown';
+  label: string;
+  options: ListBoxItem[];
 }
 
-const FormSection = <
-  Schema extends Record<string, any>,
-  Details extends { [K in keyof Schema]: FormField },
->({
-  fields,
-  ...props
-}: FormSectionProps<Schema, Details>) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
+interface ToggleField extends BaseFormField {
+  type: 'toggle';
+  label: string;
+  options: string[];
+  valueType?: 'string' | 'boolean';
+}
 
+interface TextareaField extends BaseFormField {
+  type: 'textarea';
+  label: string;
+}
+
+interface BaseFormField {
+  name: string;
+  key?: string;
+  className?: string;
+  wrapperClassName?: string;
+}
+
+interface FieldProps {
+  control: Control<FieldValues, any, FieldValues>;
+  value: FormField;
+  namePrefix?: string;
+}
+
+const FormSection = ({ fields, namePrefix = '' }: FormSectionProps) => {
+  const { control } = useFormContext();
   return (
-    <div className={props.className}>
-      {Object.entries(fields).map(([key, value]) => {
-        if (value.type === 'text-input') {
-          return (
-            <Controller
-              name={`${props.namePrefix}${key}`}
-              control={control}
-              defaultValue={value.defaultValue}
-              key={value.key ? value.key : key}
-              render={({ field }) => (
-                <TextInput
-                  label={value.label}
-                  error={getPath(errors, props.namePrefix + key)?.message?.toString()}
-                  className={value.className}
-                  {...field}
-                />
-              )}
-            />
-          );
-        } else if (value.type === 'listbox') {
-          return (
-            <Controller
-              name={`${props.namePrefix}${key}`}
-              control={control}
-              render={({ field }) => (
-                <ListBox
-                  options={value.options}
-                  label={value.label}
-                  className={value.className}
-                  {...field}
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              )}
-            />
-          );
-        }
-      })}
-    </div>
+    <>
+      {fields.map(value => (
+        <div className={clsx(value.wrapperClassName)} key={value.name}>
+          <Field control={control} value={value} namePrefix={namePrefix} />
+        </div>
+      ))}
+    </>
   );
 };
 
-function getPath(obj: any, path: string): any {
-  return path.split('.').reduce((acc, key) => acc?.[key], obj);
-}
+const Field = ({ control, value, namePrefix }: FieldProps) => {
+  let name = value.name;
+  if (namePrefix !== undefined && namePrefix.trim() !== '') {
+    name = `${namePrefix}.${name}`;
+  }
+
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ name, control });
+
+  switch (value.type) {
+    case 'text-input':
+      return <TextInput {...field} {...value} error={error?.message} />;
+    case 'number-input':
+      return <NumberInput {...field} {...value} error={error?.message} />;
+    case 'date-input':
+      return <DateInput {...field} {...value} error={error?.message} />;
+    case 'datetime-input':
+      return <DateTimeInput {...field} {...value} error={error?.message} />;
+    case 'select-input':
+      return <SelectInput {...field} {...value} error={error?.message} />;
+    case 'dropdown':
+      return <Dropdown {...field} {...value} error={error?.message} />;
+    case 'toggle':
+      return (
+        <Toggle
+          label={value.label}
+          choices={value.options}
+          name={name}
+          valueType={value.valueType}
+          className={value.className}
+        />
+      );
+    case 'textarea':
+      return (
+        <Textarea {...field} {...value} error={error?.message} />
+      )
+  }
+};
 
 export default FormSection;

@@ -3,16 +3,12 @@ import Input from '../Input';
 
 interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  readonly?: boolean;
   error?: string;
+  className?: string;
 }
 
-const DateInput = ({ value, label, ...props }: DateInputProps) => {
-  return (
-    <div className={props.className}>
-      <Input label={label} type="date" value={value} onChange={props.onChange} />
-    </div>
-  );
+const DateInput = ({ error, ...props }: DateInputProps) => {
+  return <Input type="date" error={error} {...props} />;
 };
 
 export default DateInput;

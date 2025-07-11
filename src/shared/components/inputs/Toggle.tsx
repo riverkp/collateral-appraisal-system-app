@@ -28,6 +28,7 @@ interface StringToggleProps {
   registerProps: UseFormRegisterReturn<string>;
 }
 
+// TODO: clean this up
 const Toggle = ({ label, choices, name, valueType = 'boolean', ...props }: ToggleProps) => {
   const {
     register,
@@ -38,7 +39,7 @@ const Toggle = ({ label, choices, name, valueType = 'boolean', ...props }: Toggl
   let registerProps = register(name);
 
   return (
-    <div className={`text-sm ${props.className}`}>
+    <div className={clsx('text-sm', props.className)}>
       <fieldset>
         <legend className="font-medium text-gray-700 mb-1">{label}</legend>
         <div className="flex border-2 border-transparent outline outline-neutral-300 w-fit rounded-[36px] gap-[1px]">
