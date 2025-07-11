@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import { createContext, useContext, type HTMLAttributes, type ReactNode } from 'react';
 import Icon from './Icon';
 
 interface ResizableSidebarProps extends HTMLAttributes<HTMLDivElement> {
@@ -13,18 +13,38 @@ interface ResizeButtonProps {
   onClick: () => void;
 }
 
+interface SidebarContextType {
+  isOpen: boolean;
+  onToggle: () => void;
+  openedWidth: string;
+  closedWidth: string;
+}
+
+const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
+
 const ResizableSidebar = ({
   isOpen,
   onToggle,
   children,
   openedWidth,
   closedWidth,
-  ...props
 }: ResizableSidebarProps) => {
   return (
-    <div
-      className={`m-6 flex flex-col gap-8 ${isOpen ? openedWidth : closedWidth} ${props.className}`}
-    >
+    <SidebarContext.Provider value={{ isOpen, onToggle, openedWidth, closedWidth }}>
+      <div className="flex flex-row divide-x">{children}</div>
+    </SidebarContext.Provider>
+  );
+};
+
+const Main = ({ children }: { children: ReactNode }) => {
+  return <div className="p-6 border-gray-200">{children}</div>;
+};
+
+const Sidebar = ({ children }: { children: ReactNode }) => {
+  // TODO: Change any to actual type
+  const { isOpen, onToggle, openedWidth, closedWidth } = useContext<any>(SidebarContext);
+  return (
+    <div className={`m-6 flex flex-col gap-8 ${isOpen ? openedWidth : closedWidth}`}>
       <div>
         <ResizeButton onClick={onToggle} />
       </div>
@@ -40,5 +60,8 @@ const ResizeButton = ({ onClick }: ResizeButtonProps) => {
     </div>
   );
 };
+
+ResizableSidebar.Sidebar = Sidebar;
+ResizableSidebar.Main = Main;
 
 export default ResizableSidebar;
