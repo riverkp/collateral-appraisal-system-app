@@ -3,7 +3,7 @@ import type { CreateRequestRequestType } from "./v1";
 export const createRequestRequestDefaults: CreateRequestRequestType = {
   "purpose": "",
   "hasAppraisalBook": false,
-  "priority": "",
+  "priority": "Normal",
   "reference": {
     "prevAppraisalNo": "",
     "prevAppraisalValue": 0,
