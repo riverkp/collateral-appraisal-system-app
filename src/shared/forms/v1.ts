@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { coercedNumber } from './schemaTransform';
 
 export const ReferenceDto = z
   .object({
@@ -10,7 +11,7 @@ export const ReferenceDto = z
 export const LoanDetailDto = z
   .object({
     loanApplicationNo: z.string().nullable(),
-    limitAmt: z.number().nullable(),
+    limitAmt: coercedNumber(z.number().nullable()),
     totalSellingPrice: z.number().nullable(),
   })
   .passthrough();
@@ -54,10 +55,10 @@ export const RequestorDto = z
   })
   .passthrough();
 export const RequestCustomerDto = z
-  .object({ name: z.string(), contactNumber: z.string() })
+  .object({ name: z.string().min(1), contactNumber: z.string() })
   .passthrough();
 export const RequestPropertyDto = z
-  .object({ propertyType: z.string(), buildingType: z.string(), sellingPrice: z.number() })
+  .object({ propertyType: z.string(), buildingType: z.string(), sellingPrice: coercedNumber(z.number()) })
   .passthrough();
 export const RequestCommentDto = z.object({ comment: z.string() }).passthrough();
 export const UpdateRequestRequest = z
@@ -67,7 +68,7 @@ export const UpdateRequestRequest = z
     priority: z.string(),
     reference: ReferenceDto,
     channel: z.string(),
-    occurConstInspec: z.number().int().nullable(),
+    occurConstInspec: coercedNumber(z.number().int().nullable()),
     loanDetail: LoanDetailDto,
     address: AddressDto,
     contact: ContactDto,
@@ -168,4 +169,5 @@ export const schemas = {
 };
 
 export type CreateRequestRequestType = z.infer<typeof CreateRequestRequest>;
-export type AddressDtoType = z.infer<typeof AddressDto>;
+export type AddressDtoType = z.infer<typeof AddressDto>;RequestPropertyDto
+export type RequestPropertyDtoType = z.infer<typeof RequestPropertyDto>;
