@@ -39,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={clsx(
-              'block px-4 py-2 bg-white border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm',
+              'block px-4 py-2 bg-white border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm',
               error
                 ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
                 : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500',

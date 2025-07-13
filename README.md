@@ -10,6 +10,9 @@ A modern React-based application for managing property appraisals and collateral
 - 🎨 **Tailwind CSS** – utility-first styling
 - 📁 **Feature-based structure** – scalable & organized
 - 🧰 TypeScript, ESLint, Prettier, and path aliasing for DX
+- 📝 **React Hook Form**
+- 📐 **Zod** – for schema validation
+- 🖼️ **Headless UI, DaisyUI** – for components
 
 ## Getting Started
 
