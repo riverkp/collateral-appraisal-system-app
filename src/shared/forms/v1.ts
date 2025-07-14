@@ -114,6 +114,113 @@ export const RequestDto = z
   })
   .passthrough();
 export const GetRequestResult = z.object({ requests: z.array(RequestDto) }).passthrough();
+export const TitleDocument = z
+  .object({
+    docType: z.string().nullable(),
+    fileName: z.string().nullable(),
+    uploadDate: z.string().datetime({ offset: true }),
+    prefix: z.string().nullable(),
+    set: z.number().int(),
+    comment: z.string().nullable(),
+    filePath: z.string().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const Collateral = z
+  .object({
+    collateralType: z.string().nullable(),
+    collateralStatus: z.string().nullable(),
+    titleNo: z.string().nullable(),
+    owner: z.string().nullable(),
+    noOfBuilding: z.number().int().nullable(),
+    titleDetail: z.string().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const Area = z
+  .object({
+    rai: z.number().nullable(),
+    ngan: z.number().nullable(),
+    wa: z.number().nullable(),
+    usageArea: z.number().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const Condo = z
+  .object({
+    condoName: z.string().nullable(),
+    condoBuildingNo: z.string().nullable(),
+    condoRoomNo: z.string().nullable(),
+    condoFloorNo: z.string().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const TitleAddress = z
+  .object({
+    houseNo: z.string().nullable(),
+    roomNo: z.string().nullable(),
+    floorNo: z.string().nullable(),
+    buildingNo: z.string().nullable(),
+    moo: z.string().nullable(),
+    soi: z.string().nullable(),
+    road: z.string().nullable(),
+    subDistrict: z.string(),
+    district: z.string(),
+    province: z.string(),
+    postcode: z.string().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const DopaAddress = z
+  .object({
+    dopaHouseNo: z.string().nullable(),
+    dopaRoomNo: z.string().nullable(),
+    dopaFloorNo: z.string().nullable(),
+    dopaBuildingNo: z.string().nullable(),
+    dopaMoo: z.string().nullable(),
+    dopaSoi: z.string().nullable(),
+    dopaRoad: z.string().nullable(),
+    dopaSubDistrict: z.string().nullable(),
+    dopaDistrict: z.string().nullable(),
+    dopaProvince: z.string().nullable(),
+    dopaPostcode: z.string().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const Building = z.object({ buildingType: z.string().nullable() }).passthrough();
+export const Vehicle = z
+  .object({
+    vehicleType: z.string().nullable(),
+    vehicleRegistrationNo: z.string().nullable(),
+    vehAppointmentLocation: z.string().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const Machine = z
+  .object({
+    machineStatus: z.string().nullable(),
+    machineType: z.string().nullable(),
+    machineRegistrationStatus: z.string().nullable(),
+    machineRegistrationNo: z.string().nullable(),
+    machineInvoiceNo: z.string().nullable(),
+    noOfMachine: z.number().nullable(),
+  })
+  .partial()
+  .passthrough();
+export const RequestTitle = z
+  .object({
+    titleDocuments: z.array(TitleDocument).nullable(),
+    collateral: Collateral.nullable(),
+    area: Area.nullable(),
+    condo: Condo.nullable(),
+    titleAddress: TitleAddress.nullable(),
+    dopaAddress: DopaAddress.nullable(),
+    building: Building.nullable(),
+    vehicle: Vehicle.nullable(),
+    machine: Machine.nullable(),
+  })
+  .partial()
+  .passthrough();
 export const CreateRequestRequest = z
   .object({
     purpose: z.string(),
@@ -130,6 +237,7 @@ export const CreateRequestRequest = z
     customers: z.array(RequestCustomerDto),
     properties: z.array(RequestPropertyDto),
     comments: z.array(RequestCommentDto),
+    titles: z.array(RequestTitle),
   })
   .passthrough();
 export const CreateRequestResponse = z.object({ id: z.number().int() }).passthrough();
@@ -142,6 +250,10 @@ export const TokenRequest = z
     codeVerifier: z.string(),
     redirectUri: z.string(),
   })
+  .passthrough();
+export const DecisionRequest = z
+  .object({ correlationId: z.string(), activityName: z.string(), actionTaken: z.string() })
+  .partial()
   .passthrough();
 
 export const schemas = {
@@ -162,10 +274,21 @@ export const schemas = {
   UpdateRequestCommentRequest,
   RequestDto,
   GetRequestResult,
+  TitleDocument,
+  Collateral,
+  Area,
+  Condo,
+  TitleAddress,
+  DopaAddress,
+  Building,
+  Vehicle,
+  Machine,
+  RequestTitle,
   CreateRequestRequest,
   CreateRequestResponse,
   AddCommentToRequestRequest,
   TokenRequest,
+  DecisionRequest,
 };
 
 export type CreateRequestRequestType = z.infer<typeof CreateRequestRequest>;
