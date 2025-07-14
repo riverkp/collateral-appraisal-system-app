@@ -14,6 +14,7 @@ import PropertiesForm from '../forms/PropertiesForm';
 import RequestForm from '../forms/RequestForm';
 import AppointmentAndFeeForm from '../forms/AppointmentAndFeeForm';
 import ResizableSidebar from '@/shared/components/ResizableSidebar';
+import TitleInformationForm from '../forms/TitleInformationForm';
 
 function CreateRequestPage() {
   const methods = useForm<CreateRequestRequestType>({
@@ -58,6 +59,8 @@ function CreateRequestPage() {
               <AddressForm />
               <SectionHeader title="Appointment and Fee" />
               <AppointmentAndFeeForm />
+              <SectionHeader title="Title Information" />
+              <TitleInformationForm />
             </div>
           </ResizableSidebar.Main>
           <ResizableSidebar.Sidebar>

@@ -58,7 +58,11 @@ export const RequestCustomerDto = z
   .object({ name: z.string().min(1), contactNumber: z.string() })
   .passthrough();
 export const RequestPropertyDto = z
-  .object({ propertyType: z.string(), buildingType: z.string(), sellingPrice: coercedNumber(z.number()) })
+  .object({
+    propertyType: z.string(),
+    buildingType: z.string(),
+    sellingPrice: coercedNumber(z.number()),
+  })
   .passthrough();
 export const RequestCommentDto = z.object({ comment: z.string() }).passthrough();
 export const UpdateRequestRequest = z
@@ -128,7 +132,7 @@ export const TitleDocument = z
   .passthrough();
 export const Collateral = z
   .object({
-    collateralType: z.string().nullable(),
+    collateralType: z.string(),
     collateralStatus: z.string().nullable(),
     titleNo: z.string().nullable(),
     owner: z.string().nullable(),
@@ -207,10 +211,10 @@ export const Machine = z
   })
   .partial()
   .passthrough();
-export const RequestTitle = z
+export const RequestTitleDto = z
   .object({
     titleDocuments: z.array(TitleDocument).nullable(),
-    collateral: Collateral.nullable(),
+    collateral: Collateral,
     area: Area.nullable(),
     condo: Condo.nullable(),
     titleAddress: TitleAddress.nullable(),
@@ -237,7 +241,7 @@ export const CreateRequestRequest = z
     customers: z.array(RequestCustomerDto),
     properties: z.array(RequestPropertyDto),
     comments: z.array(RequestCommentDto),
-    titles: z.array(RequestTitle),
+    titles: z.array(RequestTitleDto),
   })
   .passthrough();
 export const CreateRequestResponse = z.object({ id: z.number().int() }).passthrough();
@@ -283,7 +287,7 @@ export const schemas = {
   Building,
   Vehicle,
   Machine,
-  RequestTitle,
+  RequestTitleDto,
   CreateRequestRequest,
   CreateRequestResponse,
   AddCommentToRequestRequest,
@@ -292,5 +296,6 @@ export const schemas = {
 };
 
 export type CreateRequestRequestType = z.infer<typeof CreateRequestRequest>;
-export type AddressDtoType = z.infer<typeof AddressDto>;RequestPropertyDto
+export type AddressDtoType = z.infer<typeof AddressDto>;
 export type RequestPropertyDtoType = z.infer<typeof RequestPropertyDto>;
+export type RequestTitleDtoType = z.infer<typeof RequestTitleDto>;
