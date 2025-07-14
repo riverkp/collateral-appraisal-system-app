@@ -7,7 +7,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-const TextInput = ({ error, readonly = false, ...props }: TextInputProps) => {
+const TextInput = ({ error, ...props }: TextInputProps) => {
   return <Input error={error} {...props} />;
 };
 
