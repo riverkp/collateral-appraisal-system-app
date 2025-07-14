@@ -3,7 +3,7 @@ import FormSection, { type FormField } from "@/shared/components/sections/FormSe
 const AppointmentAndFeeForm = () => {
   return (
     <div className="grid grid-cols-2 gap-3">
-      <FormSection fields={appointmentAndFeeFields} namePrefix={'address'} />
+      <FormSection fields={appointmentAndFeeFields} />
     </div>
   );
 }
