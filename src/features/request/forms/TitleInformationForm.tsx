@@ -21,13 +21,14 @@ interface TitleFormProps {
 const TitleInformationForm = () => {
   const [editIndex, setEditIndex] = useState<number | undefined>();
   const [currentFormType, setCurrentFormType] = useState();
+  const { getValues, watch } = useFormContext();
 
-  const { getValues } = useFormContext();
+  const titles = watch('titles');
 
   useEffect(() => {
     const value = getValues(`titles.${editIndex}.collateral.collateralType`);
     setCurrentFormType(value);
-  });
+  }, [titles, getValues, setCurrentFormType, editIndex]);
 
   return (
     <div className="flex gap-6">
@@ -47,7 +48,7 @@ const TitleInformationForm = () => {
 
 const TitleInformationMainPanel = ({ index, currentFormType }: TitleInformationMainPanelProps) => {
   return index === undefined ? (
-    <>Table</>
+    <>Table~~</>
   ) : (
     <div className="grid grid-cols-6 gap-3">
       <FormSection fields={titleFields} namePrefix="titles" index={index} />
@@ -87,7 +88,7 @@ const TitleForm = ({ index, currentFormType }: TitleFormProps) => {
         </>
       );
     default:
-      return <></>;
+      return <div>Table?</div>;
   }
 };
 
