@@ -41,8 +41,12 @@ const Main = ({ children }: { children: ReactNode }) => {
 };
 
 const Sidebar = ({ children }: { children: ReactNode }) => {
-  // TODO: Change any to actual type
-  const { isOpen, onToggle, openedWidth, closedWidth } = useContext<any>(SidebarContext);
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error('Sidebar must be used within ResizableSidebar');
+  }
+  const { isOpen, onToggle, openedWidth, closedWidth } = context;
+
   return (
     <div className={`m-6 flex flex-col gap-8 ${isOpen ? openedWidth : closedWidth}`}>
       <div>
