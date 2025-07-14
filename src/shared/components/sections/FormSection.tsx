@@ -12,6 +12,7 @@ import SelectInput from '../inputs/SelectInput';
 interface FormSectionProps {
   fields: FormField[];
   namePrefix?: string;
+  index?: number;
 }
 
 export type FormField =
@@ -79,23 +80,27 @@ interface FieldProps {
   control: Control<FieldValues, any, FieldValues>;
   value: FormField;
   namePrefix?: string;
+  index?: number;
 }
 
-const FormSection = ({ fields, namePrefix = '' }: FormSectionProps) => {
+const FormSection = ({ fields, namePrefix = '', index }: FormSectionProps) => {
   const { control } = useFormContext();
   return (
     <>
       {fields.map(value => (
         <div className={clsx(value.wrapperClassName)} key={value.name}>
-          <Field control={control} value={value} namePrefix={namePrefix} />
+          <Field control={control} value={value} namePrefix={namePrefix} index={index} />
         </div>
       ))}
     </>
   );
 };
 
-const Field = ({ control, value, namePrefix }: FieldProps) => {
+const Field = ({ control, value, namePrefix, index }: FieldProps) => {
   let name = value.name;
+  if (index !== undefined) {
+    name = `${index}.${name}`;
+  }
   if (namePrefix !== undefined && namePrefix.trim() !== '') {
     name = `${namePrefix}.${name}`;
   }
@@ -129,9 +134,7 @@ const Field = ({ control, value, namePrefix }: FieldProps) => {
         />
       );
     case 'textarea':
-      return (
-        <Textarea {...field} {...value} error={error?.message} />
-      )
+      return <Textarea {...field} {...value} error={error?.message} />;
   }
 };
 
