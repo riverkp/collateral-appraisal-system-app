@@ -5,7 +5,7 @@ import {
   ListboxOptions as HeadlessListboxOptions,
   ListboxSelectedOption as HeadlessListboxSelectedOption,
 } from '@headlessui/react';
-import { type HTMLAttributes, type ReactNode, type SelectHTMLAttributes } from 'react';
+import { type ReactNode, type SelectHTMLAttributes } from 'react';
 import Icon from '../Icon';
 
 interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {

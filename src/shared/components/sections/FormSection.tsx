@@ -6,7 +6,7 @@ import TextInput from '../inputs/TextInput';
 import DateInput from '../inputs/DateInput';
 import clsx from 'clsx';
 import Textarea from '../inputs/Textarea';
-import DateTimeInput from '../inputs/DatetimeInput';
+import DateTimeInput from '../inputs/DateTimeInput';
 import SelectInput from '../inputs/SelectInput';
 
 interface FormSectionProps {
