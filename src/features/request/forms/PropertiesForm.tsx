@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import type { RequestPropertyDtoType } from '@/shared/forms/v1';
 
 const PropertiesForm = () => {
-  const { control, watch } = useFormContext();
+  const { control, subscribe } = useFormContext();
   const {
     field,
     fieldState: { error },
@@ -14,11 +14,17 @@ const PropertiesForm = () => {
   const [totalSellingPrice, setTotalSellingPrice] = useState(0);
 
   useEffect(() => {
-    watch(value => {
-      const properties: RequestPropertyDtoType[] = value.properties;
-      setTotalSellingPrice(calcTotalPrice(properties));
+    const callback = subscribe({
+      formState: {
+        values: true,
+      },
+      callback: ({ values }) => {
+        const properties: RequestPropertyDtoType[] = values.properties;
+        setTotalSellingPrice(calcTotalPrice(properties));
+      },
     });
-  }, [watch]);
+    return () => callback();
+  }, [subscribe]);
 
   return (
     <div>
