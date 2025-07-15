@@ -36,6 +36,7 @@ interface TableCellProps {
   control: Control<FieldValues, any, FieldValues>;
 }
 
+// TODO: Find and add unique key
 const FormTable = ({ name, headers }: FormTableProps) => {
   const { getValues, control } = useFormContext();
   const { append, remove } = useFieldArray({
@@ -64,20 +65,19 @@ const FormTable = ({ name, headers }: FormTableProps) => {
       <table className="table">
         <thead className="bg-lime-400">
           <tr>
-            {headers.map(header => (
-              <th>{header.label}</th>
+            {headers.map((header, index) => (
+              <th key={index}>{header.label}</th>
             ))}
             <th></th>
           </tr>
         </thead>
         <tbody>
           {values.map((field: Record<string, any>, index: number) => (
-            // TODO: Find and add unique key
-            <tr>
-              {headers.map(header => {
+            <tr key={index}>
+              {headers.map((header, index) => {
                 if ('name' in header) {
                   return (
-                    <td>
+                    <td key={index}>
                       <TableCell
                         name={name}
                         index={index}
@@ -89,7 +89,7 @@ const FormTable = ({ name, headers }: FormTableProps) => {
                     </td>
                   );
                 } else {
-                  return <td>{index + 1}</td>;
+                  return <td key={index}>{index + 1}</td>;
                 }
               })}
               <td className="flex gap-2 justify-end">
