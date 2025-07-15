@@ -110,6 +110,10 @@ const Field = ({ control, value, namePrefix, index }: FieldProps) => {
     fieldState: { error },
   } = useController({ name, control });
 
+  // Exclude wrapperClassName from being passed to the components
+  const { wrapperClassName: _, ...passedValue } = value;
+  value = passedValue;
+
   switch (value.type) {
     case 'text-input':
       return <TextInput {...field} {...value} error={error?.message} />;
