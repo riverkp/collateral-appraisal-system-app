@@ -1,7 +1,7 @@
 import FormSection, { type FormField } from '@/shared/components/sections/FormSection';
 import TitleItemCardPanel from '../components/TitleItemCardPanel';
 import { useEffect, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import TitleLandForm from './TitleLandForm';
 import TitleBuildingForm from './TitleBuildingForm';
 import TitleCondoForm from './TitleCondoForm';
@@ -21,27 +21,17 @@ interface TitleFormProps {
 const TitleInformationForm = () => {
   const [editIndex, setEditIndex] = useState<number | undefined>();
   const [currentFormType, setCurrentFormType] = useState();
-  const { getValues, subscribe } = useFormContext();
+  const { control } = useFormContext();
 
-  // TODO: Edit this (it might cause bugs currently)
+  const titles = useWatch({name: 'titles', control});
+
   useEffect(() => {
-    const callback = subscribe({
-      formState: {
-        values: true,
-      },
-      callback: ({ values }) => {
-        if (editIndex !== undefined) {
-          const value = values.titles[editIndex].collateral.collateralType;
-          setCurrentFormType(value);
-        }
-      },
-    });
-    if (editIndex !== undefined) {
-      const value = getValues(`titles.${editIndex}.collateral.collateralType`);
+    // when append, editIndex might get updated before titles
+    if (editIndex !== undefined && titles.length > editIndex) {
+      const value = titles[editIndex].collateral.collateralType;
       setCurrentFormType(value);
     }
-    return () => callback();
-  }, [subscribe, editIndex, setCurrentFormType]);
+  }, [titles, editIndex, setCurrentFormType]);
 
   return (
     <div className="flex gap-6">
