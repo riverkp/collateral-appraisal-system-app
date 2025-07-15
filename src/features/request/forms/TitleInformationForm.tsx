@@ -9,6 +9,7 @@ import TitleVehicleForm from './TitleVehicleForm';
 import TitleMachineForm from './TitleMachineForm';
 import SectionHeader from '@/shared/components/sections/SectionHeader';
 import Icon from '@/shared/components/Icon';
+import TitleInformationTable from '../components/tables/TitleInformationTable';
 
 interface TitleInformationMainPanelProps {
   index: number | undefined;
@@ -65,7 +66,7 @@ const TitleInformationForm = () => {
 
 const TitleInformationMainPanel = ({ index, currentFormType }: TitleInformationMainPanelProps) => {
   return index === undefined ? (
-    <>Table~~</>
+    <TitleInformationTable />
   ) : (
     <div className="grid grid-cols-6 gap-3">
       <FormSection fields={titleFields} namePrefix="titles" index={index} />
@@ -105,7 +106,11 @@ const TitleForm = ({ index, currentFormType }: TitleFormProps) => {
         </>
       );
     default:
-      return <div>Table?</div>;
+      return (
+        <div>
+          <TitleInformationTable />
+        </div>
+      );
   }
 };
 
