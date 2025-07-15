@@ -8,6 +8,7 @@ import TitleCondoForm from './TitleCondoForm';
 import TitleVehicleForm from './TitleVehicleForm';
 import TitleMachineForm from './TitleMachineForm';
 import SectionHeader from '@/shared/components/sections/SectionHeader';
+import Icon from '@/shared/components/Icon';
 
 interface TitleInformationMainPanelProps {
   index: number | undefined;
@@ -36,7 +37,16 @@ const TitleInformationForm = () => {
 
   return (
     <>
-      <SectionHeader title="Title Information" />
+      <SectionHeader
+        title="Title Information"
+        rightIcon={
+          editIndex !== undefined && (
+            <button type="button" onClick={() => setEditIndex(undefined)}>
+              <Icon style="light" name="square-list" />
+            </button>
+          )
+        }
+      />
       <div className="flex gap-6">
         <div className="flex-1/5">
           <TitleItemCardPanel name="titles" setEditIndex={setEditIndex} />
