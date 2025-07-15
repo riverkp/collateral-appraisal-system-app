@@ -1,12 +1,16 @@
-import FormSection, { type FormField } from "@/shared/components/sections/FormSection";
+import FormSection, { type FormField } from '@/shared/components/sections/FormSection';
+import SectionHeader from '@/shared/components/sections/SectionHeader';
 
 const AppointmentAndFeeForm = () => {
   return (
-    <div className="grid grid-cols-2 gap-3">
-      <FormSection fields={appointmentAndFeeFields} />
-    </div>
+    <>
+      <SectionHeader title="Appointment and Fee" />
+      <div className="grid grid-cols-2 gap-3">
+        <FormSection fields={appointmentAndFeeFields} />
+      </div>
+    </>
   );
-}
+};
 
 export const appointmentAndFeeFields: FormField[] = [
   {
@@ -49,6 +53,6 @@ export const appointmentAndFeeFields: FormField[] = [
     name: '???5', // TODO
     wrapperClassName: 'col-span-2',
   },
-]
+];
 
 export default AppointmentAndFeeForm;

@@ -3,7 +3,6 @@ import { CreateRequestRequest, type CreateRequestRequestType } from '@/shared/fo
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
-import SectionHeader from '../../../shared/components/sections/SectionHeader';
 import AddressForm from '../forms/AddressForm';
 import Button from '@/shared/components/Button';
 import RequestRightMenu from '../components/RequestRightMenu';
@@ -49,17 +48,11 @@ function CreateRequestPage() {
         >
           <ResizableSidebar.Main>
             <div className="flex-auto flex flex-col gap-4 ">
-              <SectionHeader title="Customers" />
               <CustomersForm />
-              <SectionHeader title="Request" />
               <RequestForm />
-              <SectionHeader title="Properties" />
               <PropertiesForm />
-              <SectionHeader title="Location" />
               <AddressForm />
-              <SectionHeader title="Appointment and Fee" />
               <AppointmentAndFeeForm />
-              <SectionHeader title="Title Information" />
               <TitleInformationForm />
             </div>
           </ResizableSidebar.Main>

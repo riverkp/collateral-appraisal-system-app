@@ -7,6 +7,7 @@ import TitleBuildingForm from './TitleBuildingForm';
 import TitleCondoForm from './TitleCondoForm';
 import TitleVehicleForm from './TitleVehicleForm';
 import TitleMachineForm from './TitleMachineForm';
+import SectionHeader from '@/shared/components/sections/SectionHeader';
 
 interface TitleInformationMainPanelProps {
   index: number | undefined;
@@ -23,7 +24,7 @@ const TitleInformationForm = () => {
   const [currentFormType, setCurrentFormType] = useState();
   const { control } = useFormContext();
 
-  const titles = useWatch({name: 'titles', control});
+  const titles = useWatch({ name: 'titles', control });
 
   useEffect(() => {
     // when append, editIndex might get updated before titles
@@ -34,18 +35,21 @@ const TitleInformationForm = () => {
   }, [titles, editIndex, setCurrentFormType]);
 
   return (
-    <div className="flex gap-6">
-      <div className="flex-1/5">
-        <TitleItemCardPanel name="titles" setEditIndex={setEditIndex} />
+    <>
+      <SectionHeader title="Title Information" />
+      <div className="flex gap-6">
+        <div className="flex-1/5">
+          <TitleItemCardPanel name="titles" setEditIndex={setEditIndex} />
+        </div>
+        <div>
+          <TitleInformationMainPanel
+            index={editIndex}
+            currentFormType={currentFormType}
+            key={editIndex}
+          />
+        </div>
       </div>
-      <div>
-        <TitleInformationMainPanel
-          index={editIndex}
-          currentFormType={currentFormType}
-          key={editIndex}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
