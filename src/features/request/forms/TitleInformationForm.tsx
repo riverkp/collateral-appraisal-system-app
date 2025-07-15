@@ -21,14 +21,27 @@ interface TitleFormProps {
 const TitleInformationForm = () => {
   const [editIndex, setEditIndex] = useState<number | undefined>();
   const [currentFormType, setCurrentFormType] = useState();
-  const { getValues, watch } = useFormContext();
+  const { getValues, subscribe } = useFormContext();
 
-  const titles = watch('titles');
-
+  // TODO: Edit this (it might cause bugs currently)
   useEffect(() => {
-    const value = getValues(`titles.${editIndex}.collateral.collateralType`);
-    setCurrentFormType(value);
-  }, [titles, getValues, setCurrentFormType, editIndex]);
+    const callback = subscribe({
+      formState: {
+        values: true,
+      },
+      callback: ({ values }) => {
+        if (editIndex !== undefined) {
+          const value = values.titles[editIndex].collateral.collateralType;
+          setCurrentFormType(value);
+        }
+      },
+    });
+    if (editIndex !== undefined) {
+      const value = getValues(`titles.${editIndex}.collateral.collateralType`);
+      setCurrentFormType(value);
+    }
+    return () => callback();
+  }, [subscribe, editIndex, setCurrentFormType]);
 
   return (
     <div className="flex gap-6">

@@ -11,14 +11,14 @@ interface TitleItemCardPanelProps {
 
 const TitleItemCardPanel = ({ name, setEditIndex }: TitleItemCardPanelProps) => {
   const { getValues, control } = useFormContext();
-  const { append } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control,
     name,
   });
   const values: RequestTitleDtoType[] = getValues(name);
   const handleAddRow = () => {
     append({ ...requestTitleDtoDefaults });
-    setEditIndex(getValues(name).length - 1);
+    setEditIndex(fields.length);
   };
   return (
     <div className="flex flex-col gap-4">
