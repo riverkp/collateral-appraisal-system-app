@@ -54,7 +54,7 @@ const TitleInformationForm = () => {
         <div className="w-1/5">
           <TitleItemCardPanel name="titles" setEditIndex={setEditIndex} />
         </div>
-        <div>
+        <div className="w-full">
           <TitleInformationMainPanel
             index={editIndex}
             currentFormType={currentFormType}
