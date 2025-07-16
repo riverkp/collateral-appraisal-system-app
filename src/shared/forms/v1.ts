@@ -1,18 +1,17 @@
 import { z } from 'zod';
-import { coercedNumber } from './schemaTransform';
 
 export const ReferenceDto = z
   .object({
     prevAppraisalNo: z.string().nullable(),
-    prevAppraisalValue: z.number().nullable(),
+    prevAppraisalValue: z.coerce.number().nullable(),
     prevAppraisalDate: z.string().datetime({ offset: true }).nullable(),
   })
   .passthrough();
 export const LoanDetailDto = z
   .object({
     loanApplicationNo: z.string().nullable(),
-    limitAmt: coercedNumber(z.number().nullable()),
-    totalSellingPrice: z.number().nullable(),
+    limitAmt: z.coerce.number().nullable(),
+    totalSellingPrice: z.coerce.number().nullable(),
   })
   .passthrough();
 export const AddressDto = z
@@ -61,7 +60,7 @@ export const RequestPropertyDto = z
   .object({
     propertyType: z.string(),
     buildingType: z.string(),
-    sellingPrice: coercedNumber(z.number()),
+    sellingPrice: z.coerce.number(),
   })
   .passthrough();
 export const RequestCommentDto = z.object({ comment: z.string() }).passthrough();
@@ -72,7 +71,7 @@ export const UpdateRequestRequest = z
     priority: z.string(),
     reference: ReferenceDto,
     channel: z.string(),
-    occurConstInspec: coercedNumber(z.number().int().nullable()),
+    occurConstInspec: z.coerce.number().int().nullable(),
     loanDetail: LoanDetailDto,
     address: AddressDto,
     contact: ContactDto,
@@ -91,7 +90,7 @@ export const RequestDetailDto = z
     priority: z.string(),
     reference: ReferenceDto,
     channel: z.string(),
-    occurConstInspec: z.number().int().nullable(),
+    occurConstInspec: z.coerce.number().int().nullable(),
     loanDetail: LoanDetailDto,
     address: AddressDto,
     contact: ContactDto,
@@ -101,7 +100,7 @@ export const RequestDetailDto = z
   .passthrough();
 export const GetRequestByIdResponse = z
   .object({
-    id: z.number().int(),
+    id: z.coerce.number().int(),
     appraisalNo: z.string(),
     status: z.string(),
     detail: RequestDetailDto,
@@ -111,7 +110,7 @@ export const DeleteRequestResponse = z.object({ isSuccess: z.boolean() }).passth
 export const UpdateRequestCommentRequest = z.object({ comment: z.string() }).passthrough();
 export const RequestDto = z
   .object({
-    id: z.number().int(),
+    id: z.coerce.number().int(),
     appraisalNo: z.string(),
     status: z.string(),
     detail: RequestDetailDto,
@@ -124,7 +123,7 @@ export const TitleDocument = z
     fileName: z.string().nullable(),
     uploadDate: z.string().datetime({ offset: true }),
     prefix: z.string().nullable(),
-    set: z.number().int(),
+    set: z.coerce.number().int(),
     comment: z.string().nullable(),
     filePath: z.string().nullable(),
   })
@@ -136,17 +135,17 @@ export const Collateral = z
     collateralStatus: z.string().nullable(),
     titleNo: z.string().nullable(),
     owner: z.string().nullable(),
-    noOfBuilding: z.number().int().nullable(),
+    noOfBuilding: z.coerce.number().int().nullable(),
     titleDetail: z.string().nullable(),
   })
   .partial()
   .passthrough();
 export const Area = z
   .object({
-    rai: z.number().nullable(),
-    ngan: z.number().nullable(),
-    wa: z.number().nullable(),
-    usageArea: z.number().nullable(),
+    rai: z.coerce.number().nullable(),
+    ngan: z.coerce.number().nullable(),
+    wa: z.coerce.number().nullable(),
+    usageArea: z.coerce.number().nullable(),
   })
   .partial()
   .passthrough();
@@ -207,7 +206,7 @@ export const Machine = z
     machineRegistrationStatus: z.string().nullable(),
     machineRegistrationNo: z.string().nullable(),
     machineInvoiceNo: z.string().nullable(),
-    noOfMachine: z.number().nullable(),
+    noOfMachine: z.coerce.number().nullable(),
   })
   .partial()
   .passthrough();
@@ -232,7 +231,7 @@ export const CreateRequestRequest = z
     priority: z.string(),
     reference: ReferenceDto,
     channel: z.string(),
-    occurConstInspec: z.number().int().nullable(),
+    occurConstInspec: z.coerce.number().int().nullable(),
     loanDetail: LoanDetailDto,
     address: AddressDto,
     contact: ContactDto,
@@ -244,7 +243,7 @@ export const CreateRequestRequest = z
     titles: z.array(RequestTitleDto),
   })
   .passthrough();
-export const CreateRequestResponse = z.object({ id: z.number().int() }).passthrough();
+export const CreateRequestResponse = z.object({ id: z.coerce.number().int() }).passthrough();
 export const AddCommentToRequestRequest = z.object({ comment: z.string() }).passthrough();
 export const TokenRequest = z
   .object({
