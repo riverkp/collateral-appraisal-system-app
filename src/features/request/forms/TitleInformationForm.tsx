@@ -10,6 +10,8 @@ import TitleMachineForm from './TitleMachineForm';
 import SectionHeader from '@/shared/components/sections/SectionHeader';
 import Icon from '@/shared/components/Icon';
 import TitleInformationTable from '../components/tables/TitleInformationTable';
+import TitleDocumentAdressForm from './TitleDocumentAddressForm';
+import DopaAdressForm from './DopaAddressForm';
 
 interface TitleInformationMainPanelProps {
   index: number | undefined;
@@ -49,7 +51,7 @@ const TitleInformationForm = () => {
         }
       />
       <div className="flex gap-6">
-        <div className="flex-1/5">
+        <div className="w-1/5">
           <TitleItemCardPanel name="titles" setEditIndex={setEditIndex} />
         </div>
         <div>
@@ -78,7 +80,13 @@ const TitleInformationMainPanel = ({ index, currentFormType }: TitleInformationM
 const TitleForm = ({ index, currentFormType }: TitleFormProps) => {
   switch (currentFormType) {
     case 'land':
-      return <TitleLandForm index={index} />;
+      return (
+        <>
+          <TitleLandForm index={index} />
+          <TitleDocumentAdressForm index={index} />
+          <DopaAdressForm index={index} />
+        </>
+      );
     case 'building':
       return <TitleBuildingForm index={index} />;
     case 'landAndBuilding':
