@@ -15,6 +15,7 @@ import AppointmentAndFeeForm from '../forms/AppointmentAndFeeForm';
 import ResizableSidebar from '@/shared/components/ResizableSidebar';
 import TitleInformationForm from '../forms/TitleInformationForm';
 import AttachDocumentForm from '../forms/AttachDocumentForm';
+import { useCreateRequest } from '../api';
 
 function CreateRequestPage() {
   const methods = useForm<CreateRequestRequestType>({
@@ -24,18 +25,20 @@ function CreateRequestPage() {
   const {
     // control,
     handleSubmit,
+    getValues,
     // watch,
     // formState: { errors },
   } = methods;
-  // TODO: Use React Query
+
+  const { mutate } = useCreateRequest();
   const onSubmit: SubmitHandler<CreateRequestRequestType> = data => {
-    console.log(data);
-    axios
-      .post('https://localhost:7111/requests', data)
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+    mutate(data);
   };
   const { isOpen, onToggle } = useDisclosure();
+  const handleSaveDraft = () => {
+    const data = getValues();
+    mutate(data);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -66,15 +69,23 @@ function CreateRequestPage() {
         <div className="flex justify-between">
           <div className="flex divide-x gap-4">
             <div className="border-gray-200">
-              <Button variant="ghost">Cancel</Button>
+              <Button variant="ghost" type="button">
+                Cancel
+              </Button>
             </div>
             <div className="flex gap-4">
-              <Button variant="outline">Delete</Button>
-              <Button variant="outline">Duplicate</Button>
+              <Button variant="outline" type="button">
+                Delete
+              </Button>
+              <Button variant="outline" type="button">
+                Duplicate
+              </Button>
             </div>
           </div>
           <div className="flex gap-4">
-            <Button variant="outline">Save draft</Button>
+            <Button variant="outline" type="button" onClick={handleSaveDraft}>
+              Save draft
+            </Button>
             <Button type="submit">Save</Button>
           </div>
         </div>
