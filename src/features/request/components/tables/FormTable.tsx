@@ -74,10 +74,10 @@ const FormTable = ({ name, headers }: FormTableProps) => {
         <tbody>
           {values.map((field: Record<string, any>, index: number) => (
             <tr key={index}>
-              {headers.map((header, index) => {
+              {headers.map((header, inner_index) => {
                 if ('name' in header) {
                   return (
-                    <td key={index}>
+                    <td key={inner_index}>
                       <TableCell
                         name={name}
                         index={index}
