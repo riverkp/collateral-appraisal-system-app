@@ -43,8 +43,8 @@ function CreateRequestPage() {
         <ResizableSidebar
           isOpen={isOpen}
           onToggle={onToggle}
-          openedWidth="basis-xs"
-          closedWidth="w-8"
+          openedWidth="w-1/5"
+          closedWidth="w-1/50"
         >
           <ResizableSidebar.Main>
             <div className="flex-auto flex flex-col gap-4 ">
