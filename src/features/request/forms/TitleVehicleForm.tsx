@@ -30,6 +30,7 @@ const vehicleFields: FormField[] = [
     label: 'Registration No',
     name: 'vehicle.vehicleRegistrationNo',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'textarea',

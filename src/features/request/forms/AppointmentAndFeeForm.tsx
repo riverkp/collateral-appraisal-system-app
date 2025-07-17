@@ -28,6 +28,7 @@ export const appointmentAndFeeFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-1',
+    required: true,
   },
   {
     type: 'text-input',
@@ -46,12 +47,14 @@ export const appointmentAndFeeFields: FormField[] = [
     label: 'Appointment Date/Time',
     name: '???4', // TODO
     wrapperClassName: 'col-span-2',
+    required: true,
   },
   {
     type: 'textarea',
     label: 'Location Detail',
     name: '???5', // TODO
     wrapperClassName: 'col-span-2',
+    required: true,
   },
 ];
 

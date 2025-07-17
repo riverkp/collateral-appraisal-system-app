@@ -8,6 +8,7 @@ const AddressForm = () => {
       <SectionHeader title="Location" />
       <div className="grid grid-cols-6 gap-3">
         <FormSection fields={addressFields} namePrefix={'address'} />
+        <FormSection fields={contactFields} namePrefix={'contact'} />
       </div>
     </>
   );
@@ -61,41 +62,51 @@ export const addressFields: FormField[] = [
     label: 'Sub District',
     name: 'subDistrict',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'text-input',
     label: 'District',
     name: 'district',
     wrapperClassName: 'col-span-3',
+    disabled: true,
+    required: true,
   },
   {
     type: 'text-input',
     label: 'Province',
     name: 'province',
     wrapperClassName: 'col-span-3',
+    disabled: true,
+    required: true,
   },
   {
     type: 'text-input',
     label: 'Postcode',
     name: 'postcode',
     wrapperClassName: 'col-span-3',
+    disabled: true,
   },
+];
+export const contactFields: FormField[] = [
   {
     type: 'text-input',
     label: 'Contact Person Name',
     name: 'contactPersonName',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'text-input',
     label: 'Contact Person Phone No',
-    name: 'contactPersonPhoneNo',
+    name: 'contactPersonContactNo',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'dropdown',
-    label: 'Location Identifier',
-    name: 'locationIdentifier',
+    label: 'Project Code',
+    name: 'projectCode',
     wrapperClassName: 'col-span-6',
     options: [
       {

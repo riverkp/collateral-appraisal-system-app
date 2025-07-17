@@ -24,6 +24,7 @@ const machineFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'dropdown',
@@ -40,6 +41,7 @@ const machineFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'dropdown',
@@ -56,24 +58,28 @@ const machineFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'text-input',
     label: 'Registration No',
     name: 'machine.machineRegistrationNo',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'text-input',
     label: 'Invoice No',
     name: 'machine.machineInvoiceNo',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'number-input',
     label: 'No of Machine(s)',
     name: 'machine.noOfMachine',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
 ];
 

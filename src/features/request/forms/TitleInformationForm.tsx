@@ -73,6 +73,8 @@ const TitleInformationMainPanel = ({ index, currentFormType }: TitleInformationM
     <div className="grid grid-cols-6 gap-3">
       <FormSection fields={titleFields} namePrefix="titles" index={index} />
       <TitleForm index={index} currentFormType={currentFormType} />
+      <TitleDocumentAdressForm index={index} />
+      <DopaAdressForm index={index} />
     </div>
   );
 };
@@ -80,19 +82,13 @@ const TitleInformationMainPanel = ({ index, currentFormType }: TitleInformationM
 const TitleForm = ({ index, currentFormType }: TitleFormProps) => {
   switch (currentFormType) {
     case 'land':
-      return (
-        <>
-          <TitleLandForm index={index} />
-          <TitleDocumentAdressForm index={index} />
-          <DopaAdressForm index={index} />
-        </>
-      );
+      return <TitleLandForm index={index} />;
     case 'building':
       return <TitleBuildingForm index={index} />;
     case 'landAndBuilding':
       return (
         <>
-          <TitleLandForm index={index} />
+          <TitleLandForm index={index} variant="landAndBuilding" />
           <TitleBuildingForm index={index} variant={2} />
         </>
       );
@@ -105,14 +101,14 @@ const TitleForm = ({ index, currentFormType }: TitleFormProps) => {
     case 'leaseAgreementLand':
       return <TitleLandForm index={index} />;
     case 'leaseAgreementLandAndBuilding':
-      return <TitleBuildingForm index={index} />;
-    case 'leaseAgreementBuilding':
       return (
         <>
-          <TitleLandForm index={index} />
+          <TitleLandForm index={index} variant="landAndBuilding" />
           <TitleBuildingForm index={index} variant={2} />
         </>
       );
+    case 'leaseAgreementBuilding':
+      return <TitleBuildingForm index={index} />;
     default:
       return (
         <div>
@@ -172,6 +168,7 @@ const titleFields: FormField[] = [
     label: 'Previous Appraisal Report No / CAS Status',
     name: 'collateral.collateralStatus',
     wrapperClassName: 'col-span-3',
+    disabled: true,
   },
 ];
 

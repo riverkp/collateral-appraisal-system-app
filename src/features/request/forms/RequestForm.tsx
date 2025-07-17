@@ -28,6 +28,7 @@ const requestFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'toggle',
@@ -65,12 +66,14 @@ const requestFields: FormField[] = [
     label: 'Previous Appraisal Value',
     name: 'reference.prevAppraisalValue',
     wrapperClassName: 'col-span-1',
+    disabled: true,
   },
   {
     type: 'date-input',
     label: 'Previous Appraisal Date',
     name: 'reference.prevAppraisalDate',
     wrapperClassName: 'col-span-1',
+    disabled: true,
   },
   {
     type: 'dropdown',
@@ -87,6 +90,7 @@ const requestFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-1',
+    required: true,
   },
   {
     type: 'dropdown',
@@ -103,6 +107,7 @@ const requestFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-1',
+    required: true,
   },
   {
     type: 'number-input',
@@ -121,18 +126,21 @@ const requestFields: FormField[] = [
     label: 'Increase Limit Amount',
     name: '???1', // TODO: find the name
     wrapperClassName: 'col-span-1',
+    required: true,
   },
   {
     type: 'number-input',
     label: 'Old Limit Amount',
     name: '???2', // TODO: find the name
     wrapperClassName: 'col-span-1',
+    required: true,
   },
   {
     type: 'number-input',
     label: 'Occurrence of Construction Inspection',
     name: 'occurConstInspec',
     wrapperClassName: 'col-span-1',
+    disabled: true,
   },
 ];
 

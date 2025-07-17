@@ -26,18 +26,21 @@ const buildingFields: FormField[] = [
       },
     ],
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'number-input',
     label: 'Usage Area',
     name: 'area.usageArea',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
   {
     type: 'number-input',
     label: 'Number of Building',
     name: 'collateral.noOfBuilding',
     wrapperClassName: 'col-span-3',
+    required: true,
   },
 ];
 
