@@ -63,24 +63,30 @@ export const titleAddressFields: FormField[] = [
     label: 'Sub District',
     name: 'titleAddress.subDistrict',
     wrapperClassName: 'col-span-2',
+    required: true,
   },
   {
     type: 'text-input',
     label: 'District',
     name: 'titleAddress.district',
     wrapperClassName: 'col-span-2',
+    required: true,
+    disabled: true,
   },
   {
     type: 'text-input',
     label: 'Province',
     name: 'titleAddress.province',
     wrapperClassName: 'col-span-2',
+    required: true,
+    disabled: true,
   },
   {
     type: 'text-input',
     label: 'Postcode',
     name: 'titleAddress.postcode',
     wrapperClassName: 'col-span-2',
+    disabled: true,
   },
 ];
 

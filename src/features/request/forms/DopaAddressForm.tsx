@@ -63,24 +63,30 @@ export const dopaAddressFields: FormField[] = [
     label: 'Sub District',
     name: 'dopaAddress.subDistrict',
     wrapperClassName: 'col-span-2',
+    required: true,
   },
   {
     type: 'text-input',
     label: 'District',
     name: 'dopaAddress.district',
     wrapperClassName: 'col-span-2',
+    required: true,
+    disabled: true,
   },
   {
     type: 'text-input',
     label: 'Province',
     name: 'dopaAddress.province',
     wrapperClassName: 'col-span-2',
+    required: true,
+    disabled: true,
   },
   {
     type: 'text-input',
     label: 'Postcode',
     name: 'dopaAddress.postcode',
     wrapperClassName: 'col-span-2',
+    disabled: true,
   },
 ];
 
