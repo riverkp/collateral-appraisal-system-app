@@ -1,9 +1,10 @@
 import Icon from '@/shared/components/Icon';
 import FileInput from '@/shared/components/inputs/FileInput';
-import axios from 'axios';
 import clsx from 'clsx';
+import { useUploadDocument } from '../api';
 
 const CreateRequestFileInput = () => {
+  const { mutate } = useUploadDocument();
   // TODO: (Wait for more info)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -12,12 +13,7 @@ const CreateRequestFileInput = () => {
     if (!e.target.files?.length) {
       return;
     }
-    axios
-      .postForm('https://localhost:7111/documents/a/1', {
-        Files: e.target.files[0],
-      })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+    mutate(e.target.files);
   };
   return (
     <FileInput onChange={handleChange}>

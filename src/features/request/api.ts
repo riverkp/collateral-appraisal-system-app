@@ -18,3 +18,17 @@ export const useCreateRequest = () => {
     },
   });
 };
+
+// TODO: (Wait for more info)
+export const useUploadDocument = () => {
+  return useMutation({
+    mutationFn: async (files: FileList): Promise<any> => {
+      axios
+        .postForm('https://localhost:7111/documents/a/1', {
+          Files: files,
+        })
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    },
+  });
+};
