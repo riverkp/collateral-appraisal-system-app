@@ -1,5 +1,4 @@
 import Dropdown, { type ListBoxItem } from '../inputs/Dropdown';
-import Toggle from '../inputs/Toggle';
 import NumberInput from '../inputs/NumberInput';
 import { useController, useFormContext, type Control, type FieldValues } from 'react-hook-form';
 import TextInput from '../inputs/TextInput';
@@ -8,6 +7,8 @@ import clsx from 'clsx';
 import Textarea from '../inputs/Textarea';
 import DateTimeInput from '../inputs/DateTimeInput';
 import SelectInput from '../inputs/SelectInput';
+import FormStringToggle, { type FormStringToggleOption } from '../inputs/FormStringToggle';
+import FormBooleanToggle from '../inputs/FormBooleanToggle';
 
 interface FormSectionProps {
   fields: FormField[];
@@ -22,7 +23,8 @@ export type FormField =
   | DateTimeInputField
   | SelectInputField
   | DropdownField
-  | ToggleField
+  | BooleanToggleField
+  | StringToggleField
   | TextareaField;
 
 interface TextInputField extends BaseFormField {
@@ -57,11 +59,16 @@ interface DropdownField extends BaseFormField {
   options: ListBoxItem[];
 }
 
-interface ToggleField extends BaseFormField {
-  type: 'toggle';
+interface BooleanToggleField extends BaseFormField {
+  type: 'boolean-toggle';
   label: string;
-  options: string[];
-  valueType?: 'string' | 'boolean';
+  options: [string, string];
+}
+
+interface StringToggleField extends BaseFormField {
+  type: 'string-toggle';
+  label: string;
+  options: [FormStringToggleOption, FormStringToggleOption];
 }
 
 interface TextareaField extends BaseFormField {
@@ -129,13 +136,21 @@ const Field = ({ control, value, namePrefix, index }: FieldProps) => {
       return <SelectInput {...field} {...value} error={error?.message} />;
     case 'dropdown':
       return <Dropdown {...field} {...value} error={error?.message} />;
-    case 'toggle':
+    case 'boolean-toggle':
       return (
-        <Toggle
+        <FormBooleanToggle
           label={value.label}
-          choices={value.options}
+          options={value.options}
           name={name}
-          valueType={value.valueType}
+          className={value.className}
+        />
+      );
+    case 'string-toggle':
+      return (
+        <FormStringToggle
+          label={value.label}
+          options={value.options}
+          name={name}
           className={value.className}
         />
       );

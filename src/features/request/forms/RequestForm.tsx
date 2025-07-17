@@ -31,18 +31,20 @@ const requestFields: FormField[] = [
     required: true,
   },
   {
-    type: 'toggle',
+    type: 'boolean-toggle',
     label: 'Customer bring the appraisal book',
     name: 'hasAppraisalBook',
     options: ['Yes', 'No'],
     wrapperClassName: 'col-span-1',
   },
   {
-    type: 'toggle',
+    type: 'string-toggle',
     label: 'Priority',
     name: 'priority',
-    options: ['High', 'Normal'],
-    valueType: 'string',
+    options: [
+      { name: 'high', label: 'High' },
+      { name: 'normal', label: 'Normal' },
+    ],
     wrapperClassName: 'col-span-2',
   },
   {
