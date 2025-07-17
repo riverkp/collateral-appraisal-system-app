@@ -74,6 +74,8 @@ interface BaseFormField {
   key?: string;
   className?: string;
   wrapperClassName?: string;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 interface FieldProps {

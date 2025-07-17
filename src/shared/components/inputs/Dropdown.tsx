@@ -7,10 +7,11 @@ import {
 } from '@headlessui/react';
 import { type ReactNode, type SelectHTMLAttributes } from 'react';
 import Icon from '../Icon';
+import clsx from 'clsx';
 
 interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: ListBoxItem[];
-  label: string;
+  label?: string;
   placeholder?: string;
   onChange: (value: any) => void;
   error?: string;
@@ -21,6 +22,8 @@ interface ListBoxProps {
   onChange: (value: any) => void;
   placeholder: string;
   children: ReactNode;
+  disabled?: boolean;
+  error?: string;
 }
 
 interface ListBoxOptionProps {
@@ -39,29 +42,51 @@ const Dropdown = ({
   value,
   label,
   placeholder = 'Please select',
+  error,
+  required,
+  disabled,
   ...props
 }: DropdownProps) => {
   const selectedOption = options.find(opt => opt.value === value) ?? null;
   const selectedOnChange = (opt: ListBoxItem) => props.onChange(opt.value);
   return (
-    <div className={'w-full ' + props.className}>
-      <div className="block text-sm font-medium text-gray-700 mb-1">{label}</div>
-      <ListBox value={selectedOption} onChange={selectedOnChange} placeholder={placeholder}>
+    <div className={clsx('w-full', props.className)}>
+      {label && (
+        <div className="block text-sm font-medium text-gray-700 mb-1">
+          {label}
+          {required && <span className="text-red-500"> *</span>}
+        </div>
+      )}
+      <ListBox
+        value={selectedOption}
+        onChange={selectedOnChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        error={error}
+      >
         {options.map(option => (
           <ListBoxOption key={option.id ?? option.value} value={option}>
             {option.label}
           </ListBoxOption>
         ))}
       </ListBox>
-      {props.error && <div className="mt-1 text-sm text-red-600">{props.error}</div>}
+      {error && <div className="mt-1 text-sm text-red-600">{error}</div>}
     </div>
   );
 };
 
-const ListBox = ({ placeholder, children, ...props }: ListBoxProps) => {
+const ListBox = ({ placeholder, children, disabled, error, ...props }: ListBoxProps) => {
   return (
-    <HeadlessListBox {...props}>
-      <HeadlessListboxButton className="relative w-full rounded-lg border border-neutral-300 text-left focus:not-data-focus:outline-none pr-10">
+    <HeadlessListBox disabled={disabled} {...props}>
+      <HeadlessListboxButton
+        className={clsx(
+          'relative w-full rounded-lg border text-left focus:not-data-focus:outline-none pr-10',
+          disabled ? 'bg-neutral-100 hover:!border-neutral-300' : 'bg-white',
+          error
+            ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 hover:!border-red-500'
+            : 'border-neutral-300',
+        )}
+      >
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
           <Icon style="regular" name="chevron-down" />
         </div>
