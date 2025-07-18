@@ -2,7 +2,7 @@ import { Switch, type SwitchProps } from '@headlessui/react';
 import clsx from 'clsx';
 
 interface ToggleProps extends SwitchProps {
-  label: string;
+  label?: string;
   options: [string, string];
   error?: string;
 }
@@ -11,7 +11,7 @@ const Toggle = ({ label, options, error, className, ...props }: ToggleProps) => 
   return (
     <div className={clsx('text-sm', className)}>
       <fieldset>
-        <legend className="font-medium text-gray-700 mb-1">{label}</legend>
+        {label && <legend className="font-medium text-gray-700 mb-1">{label}</legend>}
         <div className="flex border-2 border-transparent outline outline-misc-1 w-fit rounded-[36px] gap-[1px]">
           <Switch className="flex flex-row relative" {...props}>
             <span className="sr-only">{`Toggle between ${options.join(' and ')}`}</span>
