@@ -12,7 +12,7 @@ const Toggle = ({ label, options, error, className, ...props }: ToggleProps) => 
     <div className={clsx('text-sm', className)}>
       <fieldset>
         <legend className="font-medium text-gray-700 mb-1">{label}</legend>
-        <div className="flex border-2 border-transparent outline outline-neutral-300 w-fit rounded-[36px] gap-[1px]">
+        <div className="flex border-2 border-transparent outline outline-misc-1 w-fit rounded-[36px] gap-[1px]">
           <Switch className="flex flex-row relative" {...props}>
             <span className="sr-only">{`Toggle between ${options.join(' and ')}`}</span>
             {options.map((option, index) => (
@@ -20,7 +20,7 @@ const Toggle = ({ label, options, error, className, ...props }: ToggleProps) => 
                 key={index}
                 className={clsx(
                   (props.checked && index === 0) || (!props.checked && index === 1)
-                    ? 'bg-lime-300'
+                    ? 'bg-primary text-neutral-2'
                     : 'bg-white',
                   'py-2 px-4 rounded-[36px] transition-all duration-500',
                 )}
@@ -34,9 +34,7 @@ const Toggle = ({ label, options, error, className, ...props }: ToggleProps) => 
         </div>
         <div>
           {error && (
-            <p className={clsx('mt-1 text-sm', error ? 'text-red-600' : 'text-gray-500')}>
-              {error}
-            </p>
+            <p className={clsx('mt-1 text-sm', error ? 'text-danger' : 'text-gray-500')}>{error}</p>
           )}
         </div>
       </fieldset>

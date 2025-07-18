@@ -9,7 +9,6 @@ export const useParameters = (params: ParameterParams | undefined) => {
       const { data } = await axios.get('https://localhost:7111/parameter', {
         params,
       });
-      console.log(data);
       return data;
     },
     enabled: !!params,

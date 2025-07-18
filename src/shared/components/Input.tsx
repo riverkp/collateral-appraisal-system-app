@@ -37,7 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-1">
             {label}
-            {required && <span className="text-red-500"> *</span>}
+            {required && <span className="text-danger"> *</span>}
           </label>
         )}
 
@@ -56,7 +56,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               error
                 ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
                 : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500',
-              disabled ? 'bg-neutral-100' : 'bg-white',
+              disabled ? 'bg-neutral-2' : 'bg-white',
               leftIcon && 'pl-10',
               rightIcon && 'pr-10',
               fullWidth && 'w-full',

@@ -39,7 +39,7 @@ const Textarea = ({
         {...props}
       />
       {(helperText || error) && (
-        <p className={clsx('mt-1 text-sm', error ? 'text-red-600' : 'text-gray-500')}>
+        <p className={clsx('mt-1 text-sm', error ? 'text-danger' : 'text-gray-500')}>
           {error || helperText}
         </p>
       )}

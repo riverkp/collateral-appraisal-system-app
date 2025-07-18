@@ -41,8 +41,8 @@ const TitleItemCardPanel = ({ name, setEditIndex }: TitleItemCardPanelProps) => 
           onClick={handleAddRow}
           className="w-full flex items-center justify-center m-0 px-0 py-1"
         >
-          <div className="bg-teal-600 size-6 rounded-full flex items-center justify-center">
-            <Icon style="solid" name="plus" className="text-neutral-100" />
+          <div className="bg-success size-6 rounded-full flex items-center justify-center">
+            <Icon style="solid" name="plus" className="text-white" />
           </div>
         </button>
       </div>
