@@ -29,7 +29,7 @@ const FormStringToggle = ({ name, label, options, ...props }: FormStringTogglePr
       // If the current value is the second option, then don't check the toggle.
       onChange={
         checked => field.onChange(checked ? options[0].name : options[1].name)
-        // String value type: If toggle is checked, return the first option to the form field.
+        // If toggle is checked, return the first option to the form field.
         // If not, return the second option.
       }
       {...props}
