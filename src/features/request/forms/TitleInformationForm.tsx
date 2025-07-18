@@ -1,6 +1,6 @@
 import FormSection, { type FormField } from '@/shared/components/sections/FormSection';
 import TitleItemCardPanel from '../components/TitleItemCardPanel';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import TitleLandForm from './TitleLandForm';
 import TitleBuildingForm from './TitleBuildingForm';
@@ -25,18 +25,15 @@ interface TitleFormProps {
 
 const TitleInformationForm = () => {
   const [editIndex, setEditIndex] = useState<number | undefined>();
-  const [currentFormType, setCurrentFormType] = useState();
   const { control } = useFormContext();
-
   const titles = useWatch({ name: 'titles', control });
 
-  useEffect(() => {
-    // when append, editIndex might get updated before titles
-    if (editIndex !== undefined && titles.length > editIndex) {
-      const value = titles[editIndex].collateral.collateralType;
-      setCurrentFormType(value);
-    }
-  }, [titles, editIndex, setCurrentFormType]);
+  let currentFormType = undefined;
+
+  // when append, editIndex might get updated before titles
+  if (editIndex !== undefined && titles.length > editIndex) {
+    currentFormType = titles[editIndex].collateral.collateralType;
+  }
 
   return (
     <>
