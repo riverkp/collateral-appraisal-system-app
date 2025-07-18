@@ -8,18 +8,23 @@ import {
 import { type ReactNode, type SelectHTMLAttributes } from 'react';
 import Icon from '../Icon';
 import clsx from 'clsx';
+import { useParameters } from '@/shared/api/components';
+import type { ParameterParams } from '@/shared/types/api';
+import type { AtLeastOne } from '@/shared/types';
 
-interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  options: ListBoxItem[];
+type DropdownProps = DropdownBaseProps &
+  AtLeastOne<{ queryParameters: ParameterParams; options: ListBoxItem[] }>;
+
+interface DropdownBaseProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   placeholder?: string;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   error?: string;
 }
 
 interface ListBoxProps {
   value: string | null | unknown;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   placeholder: string;
   children: ReactNode;
   disabled?: boolean;
@@ -38,8 +43,10 @@ export type ListBoxItem = {
 };
 
 const Dropdown = ({
+  queryParameters,
   options,
   value,
+  onChange,
   label,
   placeholder = 'Please select',
   error,
@@ -47,8 +54,23 @@ const Dropdown = ({
   disabled,
   ...props
 }: DropdownProps) => {
-  const selectedOption = options.find(opt => opt.value === value) ?? null;
-  const selectedOnChange = (opt: ListBoxItem) => props.onChange(opt.value);
+  const { data: fetchedOptions } = useParameters(queryParameters);
+  const dropdownOptions =
+    options !== undefined
+      ? options
+      : Array.isArray(fetchedOptions)
+        ? fetchedOptions.map(p => {
+            return { value: p.code, label: p.description, id: p.seqNo };
+          })
+        : [];
+  const isControlled = onChange !== undefined && value !== undefined;
+  const selectedOption = dropdownOptions.find(opt => opt.value === value) ?? null;
+  const selectedOnChange = (opt: ListBoxItem) => {
+    if (isControlled) {
+      onChange(opt.value);
+    }
+  };
+
   return (
     <div className={clsx('w-full', props.className)}>
       {label && (
@@ -58,13 +80,13 @@ const Dropdown = ({
         </div>
       )}
       <ListBox
-        value={selectedOption}
-        onChange={selectedOnChange}
+        value={value === undefined ? undefined : selectedOption}
+        onChange={onChange === undefined ? undefined : selectedOnChange}
         placeholder={placeholder}
         disabled={disabled}
         error={error}
       >
-        {options.map(option => (
+        {dropdownOptions.map(option => (
           <ListBoxOption key={option.id ?? option.value} value={option}>
             {option.label}
           </ListBoxOption>

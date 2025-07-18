@@ -9,6 +9,8 @@ import DateTimeInput from '../inputs/DateTimeInput';
 import SelectInput from '../inputs/SelectInput';
 import FormStringToggle, { type FormStringToggleOption } from '../inputs/FormStringToggle';
 import FormBooleanToggle from '../inputs/FormBooleanToggle';
+import type { AtLeastOne } from '@/shared/types';
+import type { ParameterParams } from '@/shared/types/api';
 
 interface FormSectionProps {
   fields: FormField[];
@@ -53,10 +55,12 @@ interface SelectInputField extends BaseFormField {
   options: ListBoxItem[];
 }
 
-interface DropdownField extends BaseFormField {
+type DropdownField = BaseDropdownField &
+  AtLeastOne<{ queryParameters: ParameterParams; options: ListBoxItem[] }>;
+
+interface BaseDropdownField extends BaseFormField {
   type: 'dropdown';
   label: string;
-  options: ListBoxItem[];
 }
 
 interface BooleanToggleField extends BaseFormField {
