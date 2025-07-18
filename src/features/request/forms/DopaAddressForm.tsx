@@ -1,15 +1,25 @@
 import type { FormField } from '@/shared/components/sections/FormSection';
 import FormSection from '@/shared/components/sections/FormSection';
 import TitleInformationHeader from '../components/TitleInformationHeader';
+import { useFormContext } from 'react-hook-form';
+import type { TitleAddressType } from '@/shared/forms/v1';
 
 interface DopaAdressFormProps {
   index: number;
 }
 
 const DopaAdressForm = ({ index }: DopaAdressFormProps) => {
+  const { getValues, setValue } = useFormContext();
+  const handleCopy = () => {
+    const titleAddressValues: TitleAddressType = getValues(`titles.${index}.titleAddress`);
+    dopaAddressFields.forEach(key => {
+      const addressKey = key.name.split('.')[1];
+      setValue(`titles.${index}.${key.name}`, titleAddressValues[addressKey]);
+    });
+  };
   return (
     <>
-      <TitleInformationHeader title="DOPA address" className="col-span-6" />
+      <TitleInformationHeader title="DOPA address" onCopy={handleCopy} className="col-span-6" />
       <FormSection fields={dopaAddressFields} namePrefix={'titles'} index={index} />
     </>
   );

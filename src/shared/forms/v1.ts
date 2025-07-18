@@ -297,5 +297,6 @@ export const schemas = {
 export type CreateRequestRequestType = z.infer<typeof CreateRequestRequest>;
 export type CreateRequestResponseType = z.infer<typeof CreateRequestResponse>;
 export type AddressDtoType = z.infer<typeof AddressDto>;
+export type TitleAddressType = z.infer<typeof TitleAddress>;
 export type RequestPropertyDtoType = z.infer<typeof RequestPropertyDto>;
 export type RequestTitleDtoType = z.infer<typeof RequestTitleDto>;

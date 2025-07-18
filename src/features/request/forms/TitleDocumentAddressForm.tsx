@@ -1,15 +1,29 @@
 import type { FormField } from '@/shared/components/sections/FormSection';
 import FormSection from '@/shared/components/sections/FormSection';
 import TitleInformationHeader from '../components/TitleInformationHeader';
+import { useFormContext } from 'react-hook-form';
+import type { AddressDtoType } from '@/shared/forms/v1';
 
 interface TitleDocumentAdressFormProps {
   index: number;
 }
 
 const TitleDocumentAdressForm = ({ index }: TitleDocumentAdressFormProps) => {
+  const { getValues, setValue } = useFormContext();
+  const handleCopy = () => {
+    const addressValues: AddressDtoType = getValues('address');
+    titleAddressFields.forEach(key => {
+      const addressKey = key.name.split('.')[1];
+      setValue(`titles.${index}.${key.name}`, addressValues[addressKey]);
+    });
+  };
   return (
     <>
-      <TitleInformationHeader title="Title document address" className="col-span-6" />
+      <TitleInformationHeader
+        title="Title document address"
+        onCopy={handleCopy}
+        className="col-span-6"
+      />
       <FormSection fields={titleAddressFields} namePrefix={'titles'} index={index} />
     </>
   );
