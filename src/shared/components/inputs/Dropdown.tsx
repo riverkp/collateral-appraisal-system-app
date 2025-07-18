@@ -8,7 +8,7 @@ import {
 import { type ReactNode, type SelectHTMLAttributes } from 'react';
 import Icon from '../Icon';
 import clsx from 'clsx';
-import { useParameters } from '@/shared/api/components';
+import { useParameters } from '../../api/parameters';
 import type { ParameterParams } from '@/shared/types/api';
 import type { AtLeastOne } from '@/shared/types';
 
