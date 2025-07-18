@@ -1,31 +1,18 @@
 import Input from '@/shared/components/Input';
 import FormTable from '../components/tables/FormTable';
-import { useController, useFormContext } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useController, useFormContext, useWatch } from 'react-hook-form';
 import type { RequestPropertyDtoType } from '@/shared/forms/v1';
 import SectionHeader from '@/shared/components/sections/SectionHeader';
 
 const PropertiesForm = () => {
-  const { control, subscribe } = useFormContext();
+  const { control } = useFormContext();
   const {
     field,
     fieldState: { error },
   } = useController({ name: 'loanDetail.totalSellingPrice', control });
 
-  const [totalSellingPrice, setTotalSellingPrice] = useState(0);
-
-  useEffect(() => {
-    const callback = subscribe({
-      formState: {
-        values: true,
-      },
-      callback: ({ values }) => {
-        const properties: RequestPropertyDtoType[] = values.properties;
-        setTotalSellingPrice(calcTotalPrice(properties));
-      },
-    });
-    return () => callback();
-  }, [subscribe]);
+  const properties = useWatch({ name: 'properties' });
+  const totalSellingPrice = calcTotalPrice(properties);
 
   return (
     <>
