@@ -50,12 +50,12 @@ button {
 button:hover {
     border-color: #646cff;
 }
-*/
 
 button:focus,
 button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
+*/
 
 .icon {
     width: 1em; /* Makes the icon scale with font size */
