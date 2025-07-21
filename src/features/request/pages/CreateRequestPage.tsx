@@ -16,6 +16,9 @@ import TitleInformationForm from '../forms/TitleInformationForm';
 import AttachDocumentForm from '../forms/AttachDocumentForm';
 import { useCreateRequest } from '../api';
 import Tabs from '@/shared/components/sections/Tabs';
+import CancelButton from '@/shared/components/buttons/CancelButton';
+import DeleteButton from '@/shared/components/buttons/DeleteButton';
+import DuplicateButton from '@/shared/components/buttons/DuplicateButton';
 
 function CreateRequestPage() {
   const methods = useForm<CreateRequestRequestType>({
@@ -78,17 +81,11 @@ function CreateRequestPage() {
                 <div className="flex justify-between">
                   <div className="flex divide-x gap-4">
                     <div className="border-gray-200">
-                      <Button variant="ghost" type="button">
-                        Cancel
-                      </Button>
+                      <CancelButton />
                     </div>
                     <div className="flex gap-4">
-                      <Button variant="outline" type="button">
-                        Delete
-                      </Button>
-                      <Button variant="outline" type="button">
-                        Duplicate
-                      </Button>
+                      <DeleteButton />
+                      <DuplicateButton />
                     </div>
                   </div>
                   <div className="flex gap-4">
