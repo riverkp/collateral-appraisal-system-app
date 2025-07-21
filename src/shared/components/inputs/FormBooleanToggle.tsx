@@ -4,7 +4,7 @@ import { useController, useFormContext } from 'react-hook-form';
 
 interface FormBooleanToggleProps extends SwitchProps {
   name: string;
-  label: string;
+  label?: string;
   options: [string, string];
 }
 

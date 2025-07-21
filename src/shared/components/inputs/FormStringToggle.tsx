@@ -4,7 +4,7 @@ import { useController, useFormContext } from 'react-hook-form';
 
 interface FormStringToggleProps extends SwitchProps {
   name: string;
-  label: string;
+  label?: string;
   options: [FormStringToggleOption, FormStringToggleOption];
 }
 
