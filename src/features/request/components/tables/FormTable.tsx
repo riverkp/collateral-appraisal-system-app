@@ -117,7 +117,7 @@ const FormTable = ({ name, headers }: FormTableProps) => {
                 onClick={handleAddRow}
                 className="w-full flex items-center justify-center m-0 px-0 py-1 bg-neutral-2"
               >
-                <div className="bg-success size-6 rounded-full">
+                <div className="bg-success size-6 rounded-full flex items-center justify-center">
                   <Icon style="solid" name="plus" className="text-neutral-2" />
                 </div>
               </button>
