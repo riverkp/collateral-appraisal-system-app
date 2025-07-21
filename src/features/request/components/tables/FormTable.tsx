@@ -91,7 +91,7 @@ const FormTable = ({ name, headers }: FormTableProps) => {
                     </td>
                   );
                 } else {
-                  return <td key={index}>{index + 1}</td>;
+                  return <td key={inner_index}>{index + 1}</td>;
                 }
               })}
               <td className="flex gap-2 justify-end">
