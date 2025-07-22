@@ -6,7 +6,7 @@ export const useCreateRequest = () => {
   return useMutation({
     mutationFn: async (request: CreateRequestRequestType): Promise<CreateRequestResponseType> => {
       console.log(request);
-      const { data } = await axios.post('/requests', request);
+      const { data } = await axios.post('https://localhost:7111/requests', request);
       return data;
     },
     // TODO: Change to actual logic
