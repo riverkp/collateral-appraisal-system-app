@@ -50,7 +50,7 @@ function CreateRequestPage() {
           ]}
         />
       </div>
-      <div className="flex flex-col gap-4 overflow-y-auto h-[calc(100dvh-15rem)]">
+      <div className="flex flex-col gap-4 overflow-y-auto h-[calc(100dvh-15rem)] scroll-smooth">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <ResizableSidebar
