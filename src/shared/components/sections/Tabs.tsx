@@ -2,19 +2,15 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import clsx from 'clsx';
 import {
   createContext,
-  useContext,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
 
-interface TabsContextType {
-  variant: 'small' | 'large';
-}
-const TabsContext = createContext<TabsContextType>({ variant: 'small' });
+interface TabsContextType {}
+const TabsContext = createContext<TabsContextType>({});
 
 interface TabsProps {
-  variant: 'small' | 'large';
   children: ReactNode;
 }
 
@@ -26,35 +22,28 @@ interface TabProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-const Tabs = ({ variant, children }: TabsProps) => {
+const Tabs = ({ children }: TabsProps) => {
   return (
-    <TabsContext.Provider value={{ variant }}>
+    <TabsContext.Provider value={{}}>
       <TabGroup className={clsx('flex flex-col gap-4')}>{children}</TabGroup>
     </TabsContext.Provider>
   );
 };
 
 Tabs.List = ({ children, ...props }: TabsChildrenProps) => {
-  const { variant } = useContext(TabsContext);
   return (
-    <TabList
-      className={clsx('flex', variant === 'small' ? 'gap-4' : 'border-b border-misc-2')}
-      {...props}
-    >
+    <TabList className={clsx('flex', 'gap-4')} {...props}>
       {children}
     </TabList>
   );
 };
 
 Tabs.Tab = ({ children, ...props }: TabProps) => {
-  const { variant } = useContext(TabsContext);
   return (
     <Tab
       className={clsx(
         'py-2 uppercase',
-        variant === 'small'
-          ? 'text-misc-2 data-selected:text-neutral-5 font-bold data-selected:border-b data-selected:border-misc-4'
-          : 'px-6 text-misc-2 data-selected:text-neutral-5 data-selected:border-b-2 data-selected:border-misc-3',
+        'text-misc-2 data-selected:text-neutral-5 font-bold data-selected:border-b data-selected:border-misc-4',
       )}
       {...props}
     >

@@ -7,7 +7,7 @@ interface RequestRightMenuProps {}
 const RequestRightMenu = ({}: RequestRightMenuProps) => {
   return (
     <div>
-      <Tabs variant="small">
+      <Tabs>
         <Tabs.List>
           <Tabs.Tab>Overview</Tabs.Tab>
           <Tabs.Tab>Comments</Tabs.Tab>
